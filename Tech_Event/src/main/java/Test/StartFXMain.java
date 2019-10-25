@@ -25,6 +25,7 @@ public class StartFXMain extends Application {
         public static User user = new User(3, "Radhwen", "123456789");
 
     public void start(Stage primaryStage) throws IOException {
+        System.err.println("welcome to tech-event");
    Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcceuilTech.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Login");
