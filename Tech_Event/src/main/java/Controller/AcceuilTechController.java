@@ -123,5 +123,18 @@ public class AcceuilTechController implements Initializable {
 			}
         
     }
+         
+         if ((event.getTarget() == arta)) {
+			try {
+				AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource("/fxml/AcceuilArticle.fxml"));
+                                System.err.println("hhhhhhhhh");
+				content.getChildren(
+                                ).clear();
+				content.getChildren().add(newLoadedPane);
+			} catch (IOException ex) {
+				Logger.getLogger(AcceuilTechController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+        
+    }
     
     }}
