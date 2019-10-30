@@ -5,6 +5,7 @@
  */
 package fxml;
 
+import Controller.AcceuilTechController;
 import Entite.User;
 import Service.UserService;
 import java.io.IOException;
@@ -65,10 +66,13 @@ private AnchorPane bp;
         if(test!=0){
         Stage stage = (Stage) bp.getScene().getWindow();
                 System.err.println("bbb2");
-            Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("fxml/AcceuilTech.fxml"));
-      
+         
+           FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("fxml/AcceuilTech.fxml"));
+           Parent root =(Parent) loader.load();
             //System.err.println(info);
-          
+            AcceuilTechController  acceuil=loader.getController();
+            acceuil.MyLogin(tfLogin.getText());
+            
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

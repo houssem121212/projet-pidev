@@ -7,6 +7,7 @@ package Controller;
 
 import Entite.User;
 import Service.UserService;
+import com.jfoenix.controls.JFXTextField;
 import fxml.AuthentificationController;
 import java.io.IOException;
 import java.net.URL;
@@ -56,7 +57,9 @@ public class AcceuilTechController implements Initializable {
     private HBox id_recla;
     @FXML
     private Label evnta11;
-
+     @FXML
+    private JFXTextField a;
+     
     /**
      * Initializes the controller class.
      */
@@ -65,6 +68,14 @@ public class AcceuilTechController implements Initializable {
         // TODO
     }    
 
+    
+     @FXML
+    public void MyLogin(String text)
+    {  a.setText(text);
+       
+    }
+    
+    
     @FXML
     private void btn_afficherTouse(MouseEvent event) {
         int id=AuthentificationController.test;
@@ -161,6 +172,23 @@ public class AcceuilTechController implements Initializable {
 			}
         
     }
-         
+       
+          if (event.getTarget() == resa) {
+			try {
+				//AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource("/fxml/Acceuilreservation.fxml"));
+                               FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/Acceuilreservation.fxml"));
+                              
+                                 AnchorPane newLoadedPane =loader.load();
+				content.getChildren().clear();
+				content.getChildren().add(newLoadedPane);
+                                AcceuilreservationController accR=loader.getController();
+                            
+                                
+                              
+                                accR.FinalLogin(a.getText());
+			} catch (IOException ex) {
+				Logger.getLogger(AcceuilTechController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+         }
          
     }}

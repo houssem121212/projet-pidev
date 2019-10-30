@@ -193,7 +193,7 @@
                                     <Font name="Comic Sans MS Bold Italic" size="19.0" />
                                  </font>
                               </Label>
-                              <JFXTextField layoutX="133.0" layoutY="13.0" prefHeight="25.0" prefWidth="160.0" />
+                              <JFXTextField fx:id="a" layoutX="133.0" layoutY="13.0" prefHeight="25.0" prefWidth="160.0" />
                            </children>
                         </Pane>
                         <Pane fx:id="content" prefHeight="550.0" prefWidth="795.0" />

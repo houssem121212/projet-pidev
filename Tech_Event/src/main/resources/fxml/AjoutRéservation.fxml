@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="id_page_ajout_res" prefHeight="485.0" prefWidth="759.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjoutRéservationController">
+   <children>
+      <JFXTextField fx:id="f_titre_ev" layoutX="325.0" layoutY="166.0" prefHeight="35.0" prefWidth="228.0" />
+      <JFXTextField fx:id="f_login" layoutX="325.0" layoutY="247.0" prefHeight="43.0" prefWidth="242.0" />
+      <JFXButton fx:id="btnres" layoutX="285.0" layoutY="336.0" onAction="#Ajoutres" prefHeight="36.0" prefWidth="190.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20; -fx-background-color: transparent;" styleClass="item_button" stylesheets="@style.css" text="Ajouter" textFill="#e7e5e5" />
+      <Label layoutX="14.0" layoutY="183.0" text="Titre de l'évenement:" textFill="#e7e5e5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="273.0" prefHeight="35.0" prefWidth="163.0" text="Votre Login: " textFill="#e7e5e5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="207.0" layoutY="28.0" prefHeight="43.0" prefWidth="314.0" text="Ajouter une réservation" textFill="#e7e5e5">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="resultat" layoutX="45.0" layoutY="396.0" prefHeight="76.0" prefWidth="677.0" />
+   </children>
+</AnchorPane>
