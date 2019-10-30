@@ -13,10 +13,13 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,6 +27,8 @@ import javafx.scene.layout.Pane;
  * @author hp
  */
 public class AcceuilForumController implements Initializable {
+    @FXML
+    private AnchorPane bp1;
 
     @FXML
     private Pane content;
@@ -33,7 +38,12 @@ public class AcceuilForumController implements Initializable {
     private HBox id_ajouter;
      @FXML
     private HBox id_afficherMesSujets;
- 
+     @FXML
+    private HBox id_statistique;
+
+   @FXML
+    private HBox id_retour;
+   
     @FXML
     void btn_afficherTous(MouseEvent event) {
          if (event.getTarget() == id_afficherTous) {
@@ -64,6 +74,35 @@ public class AcceuilForumController implements Initializable {
 				Logger.getLogger(AcceuilForumController.class.getName()).log(Level.SEVERE, null, ex);
 			}
          }
+         
+         if (event.getTarget() == id_statistique) {
+			try {
+				AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource("/fxml/s.fxml"));
+				content.getChildren().clear();
+				content.getChildren().add(newLoadedPane);
+			} catch (IOException ex) {
+				Logger.getLogger(AcceuilForumController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+         }
+          if (event.getTarget() == id_retour) {
+			try {
+                                
+				Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcceuilTech.fxml"));
+                                System.err.println("hhhhhhhhh");
+				Stage stage = (Stage) bp1.getScene().getWindow();
+                                System.err.println("*****");
+            
+      
+                                System.err.println("go to acceuil");
+          
+                                    Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+			} catch (IOException ex) {
+				Logger.getLogger(AcceuilTechController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+         }
+        
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -40,6 +40,9 @@
 .scroll-pane > .corner {
     -fx-background-color: black;
 }
-.AnchorPane77{
-     -fx-background-color: black;
+.text-area{
+    -fx-text-fill:#FFF;
+}
+.text-area2{
+    -fx-text-fill:black;
 }

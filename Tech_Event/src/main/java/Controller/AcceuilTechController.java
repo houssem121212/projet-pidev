@@ -16,11 +16,14 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -28,7 +31,9 @@ import javafx.scene.layout.Pane;
  * @author hp
  */
 public class AcceuilTechController implements Initializable {
-
+    
+    @FXML
+    private AnchorPane bp;
     @FXML
     private HBox id_evta;
     @FXML
@@ -137,4 +142,25 @@ public class AcceuilTechController implements Initializable {
         
     }
     
+          if ((event.getTarget() == forma)) {
+			try {
+                                
+				Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcceuilForum.fxml"));
+                                System.err.println("hhhhhhhhh");
+				Stage stage = (Stage) bp.getScene().getWindow();
+                                System.err.println("*****");
+            
+      
+                                System.err.println("go to inscription");
+          
+                                    Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+			} catch (IOException ex) {
+				Logger.getLogger(AcceuilTechController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+        
+    }
+         
+         
     }}

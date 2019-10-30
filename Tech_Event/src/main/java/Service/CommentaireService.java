@@ -41,7 +41,7 @@ public class CommentaireService {
     public List<Commentaire> readAll(int id_sujet) throws SQLException
     {
     List<Commentaire> list=new ArrayList<>();
-    ResultSet res=ste.executeQuery("select * from commentaire WHERE Id_Sujet='"+id_sujet+"'");
+    ResultSet res=ste.executeQuery("select * from commentaire WHERE Id_Sujet='"+id_sujet+"'ORDER BY Id_Commentaire");
     Commentaire com=null;
     while (res.next()) {            
       com=new Commentaire(res.getInt(1),res.getInt(2),res.getInt(3),res.getString(4),res.getString(5));

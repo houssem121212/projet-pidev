@@ -5,17 +5,24 @@
  */
 package Controller;
 
+import Entite.Categorie;
 import Entite.Sujet;
 import Service.SujetService;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +30,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -39,20 +48,56 @@ public class AffichageForumController implements Initializable {
     
           @FXML
     private AnchorPane id_affichage_Forum;
+            @FXML
+    private JFXComboBox<Categorie> id_categorie;
+   @FXML
+    private JFXTextField id_recherche;
+  @FXML
+    private ScrollPane x;
+      @FXML
+    private JFXCheckBox id_nbre_vue;
+
+    @FXML
+    private JFXCheckBox id_date_creation;
+    
 
    private static SujetService sujetService = new SujetService();
     /**
      * Initializes the controller class.
      */
    private static Sujet sujet_à_ouvrir = new Sujet();
+   
+   public static Sujet getSujet_à_ouvrir() {
+        return sujet_à_ouvrir;
+    }
+
+    public static void setSujet_à_ouvrir(Sujet sujet_à_ouvrir) {
+        AffichageForumController.sujet_à_ouvrir = sujet_à_ouvrir;
+    }
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+             id_categorie.getItems().addAll(Categorie.Astronomie,Categorie.Bio_informatique
+        ,Categorie.Electronique,Categorie.Informatique,Categorie.Robotique,Categorie.Transport);
             loadUserGrid();
-        } catch (SQLException ex) {
+                    } catch (SQLException ex) {
             Logger.getLogger(AffichageForumController.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }    
+    
+    
+    @FXML
+    void afficherbycategories(ActionEvent event) throws SQLException {
+
+               pnItems.getChildren().clear();
+                loadCategories();
+                
+          
+
+    }
+
    private void loadUserGrid() throws SQLException {
 		List<Sujet> sujets = fetchForums();
 		Node[] nodes = new Node[sujets.size()];
@@ -75,6 +120,8 @@ public class AffichageForumController implements Initializable {
 			pnItems.setStyle("-fx-background-color : #53639F");
 			pnItems.toFront();
 		}
+                 x.setContent(pnItems);
+            x.setVvalue(1.0d);
 	}
 
 
@@ -113,6 +160,7 @@ public class AffichageForumController implements Initializable {
 	private void setupActions(Node node, Sujet sujet, int index) {
 		Button openButton = (Button) node.lookup(".item_action_open");
 		openButton.setOnMouseClicked(OpenEventHandler(sujet, index));
+                
 	}
 
 	private void setHoverStyleForNode(Node[] nodes, int i) {
@@ -129,24 +177,180 @@ public class AffichageForumController implements Initializable {
 		return event -> {
 			
                    try {
+                       sujetService.compter(sujet);
                                        sujet_à_ouvrir=sujet;
 
 				AnchorPane newLoadedPane = FXMLLoader.load(getClass().getResource("/fxml/Detail_Sujet.fxml"));
 				id_affichage_Forum.getChildren().clear();
 				id_affichage_Forum.getChildren().add(newLoadedPane);
+                                
 			} catch (IOException ex) {
 				Logger.getLogger(AcceuilForumController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		};
 	}
 
-    public static Sujet getSujet_à_ouvrir() {
-        return sujet_à_ouvrir;
+    
+
+
+
+    
+        private List<Sujet> fetchCategories(Categorie categorie) throws SQLException {
+		try {
+			return sujetService.readAllSByCategorie(categorie);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+
+		return Collections.emptyList();
+	}
+    
+	private void loadCategories() throws SQLException {
+		List<Sujet> sujets = fetchCategories(id_categorie.getSelectionModel().getSelectedItem());
+		Node[] nodes = new Node[sujets.size()];
+
+		AtomicInteger i = new AtomicInteger(0);
+		sujets.forEach(sujet -> {
+			int j = i.getAndIncrement();
+			Node node = nodes[j] = loadNewItemNode();
+
+			displaySujetDetails(node, sujet);
+
+			setupActions(node, sujet, j);
+
+			setHoverStyleForNode(nodes, j);
+
+			pnItems.getChildren().add(node);
+		});
+
+		if (nodes.length > 0) {
+			pnItems.setStyle("-fx-background-color : #53639F");
+			pnItems.toFront();
+		}
+	}
+
+    
+	private void loadNames() throws SQLException {
+		List<Sujet> sujets = fetchForums();
+		Node[] nodes = new Node[sujets.size()];
+
+		AtomicInteger i = new AtomicInteger(0);
+		sujets.forEach(sujet -> {
+			int j = i.getAndIncrement();
+                        if(sujet.getTitre_Sujet().contains(id_recherche.getCharacters())){
+			Node node = nodes[j] = loadNewItemNode();
+
+			displaySujetDetails(node, sujet);
+
+			setupActions(node, sujet, j);
+
+			setHoverStyleForNode(nodes, j);
+
+			pnItems.getChildren().add(node);
+                        }});
+
+		if (nodes.length > 0) {
+			pnItems.setStyle("-fx-background-color : #53639F");
+			pnItems.toFront();
+		}
+	}
+        
+          @FXML
+    void rechercher(KeyEvent event) throws SQLException {
+       pnItems.getChildren().clear();
+                loadNames();
+    }
+    
+    
+    
+    private List<Sujet> fetchNbreVues() throws SQLException {
+		try {
+			return sujetService.TrierParNbreVue();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+
+		return Collections.emptyList();
+	}
+    
+	private void loadNbreVues() throws SQLException {
+		List<Sujet> sujets = fetchNbreVues();
+		Node[] nodes = new Node[sujets.size()];
+
+		AtomicInteger i = new AtomicInteger(0);
+		sujets.forEach(sujet -> {
+			int j = i.getAndIncrement();
+			Node node = nodes[j] = loadNewItemNode();
+
+			displaySujetDetails(node, sujet);
+
+			setupActions(node, sujet, j);
+
+			setHoverStyleForNode(nodes, j);
+
+			pnItems.getChildren().add(node);
+		});
+
+		if (nodes.length > 0) {
+			pnItems.setStyle("-fx-background-color : #53639F");
+			pnItems.toFront();
+		}
+	}
+
+     private List<Sujet> fetchDateCreation() throws SQLException {
+		try {
+			return sujetService.TrierParDateCreation();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+
+		return Collections.emptyList();
+	}
+    
+	private void loadDateCreation() throws SQLException {
+		List<Sujet> sujets = fetchDateCreation();
+		Node[] nodes = new Node[sujets.size()];
+
+		AtomicInteger i = new AtomicInteger(0);
+		sujets.forEach(sujet -> {
+			int j = i.getAndIncrement();
+			Node node = nodes[j] = loadNewItemNode();
+
+			displaySujetDetails(node, sujet);
+
+			setupActions(node, sujet, j);
+
+			setHoverStyleForNode(nodes, j);
+
+			pnItems.getChildren().add(node);
+		});
+
+		if (nodes.length > 0) {
+			pnItems.setStyle("-fx-background-color : #53639F");
+			pnItems.toFront();
+		}
+	}
+    
+    
+     @FXML
+    void trier_par_date_creation(ActionEvent event) throws SQLException {
+if( id_date_creation.isSelected()){
+           id_nbre_vue.setSelected(false);
+           pnItems.getChildren().clear();
+           loadDateCreation();
+       }
     }
 
-    public static void setSujet_à_ouvrir(Sujet sujet_à_ouvrir) {
-        AffichageForumController.sujet_à_ouvrir = sujet_à_ouvrir;
+    @FXML
+    void trier_par_nbre_vue(ActionEvent event) throws SQLException {
+if(id_nbre_vue.isSelected()){
+    
+           id_date_creation.setSelected(false);
+           pnItems.getChildren().clear();
+           loadNbreVues();
+       }
     }
+    
+     
 
-	
 }

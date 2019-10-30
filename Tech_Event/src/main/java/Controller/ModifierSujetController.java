@@ -75,9 +75,10 @@ public class ModifierSujetController implements Initializable {
                         id_page_modifé.getChildren().clear();
 			id_page_modifé.getChildren().add(newLoadedPane);
                     } catch (IOException ex) {
-                        Logger.getLogger(AjouterSujetController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ModifierSujetController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-       Image img = new Image("confirmation.jpg");
+        
+        Image img = new Image("/aa.png");
          Notifications notificationBuilder = Notifications.create()
                  .title("Sujet Modifié")
                  .text("Vous avez modifé le sujet")
@@ -85,7 +86,7 @@ public class ModifierSujetController implements Initializable {
                  .hideAfter(Duration.seconds(5))
                  .position(Pos.TOP_RIGHT);
          
-         notificationBuilder.showInformation();
+         notificationBuilder.show();
        
     }
     

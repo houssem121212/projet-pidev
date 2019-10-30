@@ -5,13 +5,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1093.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AcceuilForumController">
+<AnchorPane fx:id="bp1" prefHeight="600.0" prefWidth="1093.0" styleClass="parent" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AcceuilForumController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1093.0">
          <children>
@@ -111,14 +113,42 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="btns1">
+                  <HBox fx:id="id_statistique" alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#btn_afficherTous" prefHeight="40.0" prefWidth="250.0" styleClass="btns1">
                      <children>
-                        <FontAwesomeIconView glyphName="FOLDER" glyphStyle="-fx-fill:#f8f5f5" size="16">
+                        <FontAwesomeIconView glyphName="SIGNAL" glyphStyle="-fx-fill:#f8f5f5" size="16">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label text="Historique" textFill="#f8f5f5">
+                        <Label text="Statistique" textFill="#f8f5f5">
+                           <font>
+                              <Font name="Ebrima Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <ImageView fitHeight="200.0" fitWidth="249.0">
+                     <image>
+                        <Image url="@great.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox fx:id="id_retour" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#btn_afficherTous" prefHeight="40.0" prefWidth="250.0" styleClass="btns1">
+                     <children>
+                        <FontAwesomeIconView glyphName="LIST" glyphStyle="-fx-fill:#f8f5f5" size="16">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label text="Retour" textFill="#f8f5f5">
                            <font>
                               <Font name="Ebrima Bold" size="13.0" />
                            </font>

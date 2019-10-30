@@ -151,11 +151,11 @@ public class MesSujetsController implements Initializable {
                   sujetService.supprimerSujet(sujet);
 			
 			pnItems.getChildren().remove(index);
-                        Image img = new Image("confirmation.jpg");
+                        
          Notifications notificationBuilder = Notifications.create()
                  .title("Sujet Supprimé")
                  .text("Vous avez supprimé votre sujet")
-                 .graphic(new ImageView(img))
+                 .graphic(null)
                  .hideAfter(Duration.seconds(5))
                  .position(Pos.TOP_RIGHT);
          

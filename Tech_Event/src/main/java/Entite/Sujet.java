@@ -13,15 +13,17 @@ import java.text.SimpleDateFormat;
  * @author hp
  */
 public class Sujet {
-
+    
+    
     private int Id_Sujet;
     private int Id_User;
     private String Titre_Sujet;
     private String Contenu_Sujet;
-    
-private  String Temps_Sujet ;
-   
+    private  String Temps_Sujet ;
+    private int nbre_vues ;
+    private int nbre_jaime;
     private Categorie categorie;
+    
     public Sujet() {
     }
 
@@ -65,6 +67,28 @@ private  String Temps_Sujet ;
         this.Temps_Sujet = Temps_Sujet;
         this.categorie = categorie;
     }
+
+    public Sujet(int Id_Sujet, int Id_User, String Titre_Sujet, String Contenu_Sujet, String Temps_Sujet, int nbre_vues, int nbre_jaime, Categorie categorie) {
+        this.Id_Sujet = Id_Sujet;
+        this.Id_User = Id_User;
+        this.Titre_Sujet = Titre_Sujet;
+        this.Contenu_Sujet = Contenu_Sujet;
+        this.Temps_Sujet = Temps_Sujet;
+        this.nbre_vues = nbre_vues;
+        this.nbre_jaime = nbre_jaime;
+        this.categorie = categorie;
+    }
+
+    public Sujet(int Id_Sujet, int Id_User, String Titre_Sujet, String Contenu_Sujet, String Temps_Sujet, int nbre_jaime, Categorie categorie) {
+        this.Id_Sujet = Id_Sujet;
+        this.Id_User = Id_User;
+        this.Titre_Sujet = Titre_Sujet;
+        this.Contenu_Sujet = Contenu_Sujet;
+        this.Temps_Sujet = Temps_Sujet;
+        this.nbre_jaime = nbre_jaime;
+        this.categorie = categorie;
+    }
+    
 
     
     public int getId_Sujet() {
@@ -115,13 +139,33 @@ private  String Temps_Sujet ;
         this.categorie = categorie;
     }
 
- 
+    public int getNbre_vues() {
+        return nbre_vues;
+    }
 
+    public void setNbre_vues(int nbre_vues) {
+        this.nbre_vues = nbre_vues;
+    }
+
+    public int getNbre_jaime() {
+        return nbre_jaime;
+    }
+
+    public void setNbre_jaime(int nbre_jaime) {
+        this.nbre_jaime = nbre_jaime;
+    }
 
     @Override
     public String toString() {
-        return "Sujet{" + "Id_Sujet=" + Id_Sujet + ", Id_User=" + Id_User + ", Titre_Sujet=" + Titre_Sujet + ", Contenu_Sujet=" + Contenu_Sujet + ", Temps_Sujet=" + Temps_Sujet + '}';
+        return "Sujet{" + "Id_Sujet=" + Id_Sujet + ", Id_User=" + Id_User + ", Titre_Sujet=" + Titre_Sujet + ", Contenu_Sujet=" + Contenu_Sujet + ", Temps_Sujet=" + Temps_Sujet + ", nbre_vues=" + nbre_vues + ", nbre_jaime=" + nbre_jaime + ", categorie=" + categorie + '}';
     }
+
+   
+
+ 
+
+
+   
     
     
 

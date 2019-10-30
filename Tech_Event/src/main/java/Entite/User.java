@@ -25,7 +25,11 @@ public class User {
     public User() {
     }
     
-    
+    public User(int Id_User, String Login, String Mdp) {
+        this.Id_User = Id_User;
+        this.Login = Login;
+        this.Mdp = Mdp;
+    }
 
     public User(int Id_User, String Login, String Mdp, String E_mailU, String NomU, String PrenomU, int NumTel, String PhotoProfil, String RoleU) {
         this.Id_User = Id_User;
