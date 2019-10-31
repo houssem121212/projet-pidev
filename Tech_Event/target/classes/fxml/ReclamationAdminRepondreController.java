@@ -32,10 +32,11 @@ public class ReclamationAdminRepondreController implements Initializable {
     private TextField ft_mail;
     @FXML
     private TextField ft_titre;
+   @FXML
+    private TextField contenu;
+
     @FXML
-    private TextArea faContenu;
-    @FXML
-    private TextArea faReponse;
+    private TextField ftReponse;
     @FXML
     private Button btn_envoyerr;
     
@@ -48,7 +49,7 @@ public class ReclamationAdminRepondreController implements Initializable {
       String contenu=ReclamationAdminController.contenuRec;
      String titre= ReclamationAdminController.titreRec;
      ft_titre.setText(titre);
-     faContenu.setText(contenu);
+     this.contenu.setText(contenu);
     }    
 
     public void SendMail(String UserEmail, String MessageText){
@@ -103,7 +104,7 @@ public class ReclamationAdminRepondreController implements Initializable {
     private void repondreReclamationuSER(ActionEvent event) {
         String mail=ft_mail.getText();
         String titre=ft_titre.getText();
-     String reponse=faReponse.getText();
+     String reponse=ftReponse.getText();
         
       SendMail(mail, reponse );
     }

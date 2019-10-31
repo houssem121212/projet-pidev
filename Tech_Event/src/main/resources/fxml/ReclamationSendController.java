@@ -34,7 +34,7 @@ public class ReclamationSendController implements Initializable {
     private TextField objet;
 
     @FXML
-    private TextArea contenu;
+    private TextField contenu;
 
     @FXML
     private DatePicker dtreclamation;
