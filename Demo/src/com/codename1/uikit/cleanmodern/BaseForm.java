@@ -87,11 +87,11 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Evennements", FontImage.MATERIAL_UPDATE, e ->System.err.println("Evennement"));
      //   tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_SHOPPING_BASKET, e -> new PanierForm().getF().show());
         tb.addMaterialCommandToSideMenu("Formations", FontImage.MATERIAL_EXIT_TO_APP, e -> System.err.println("Formation"));
-        tb.addMaterialCommandToSideMenu("Articles", FontImage.MATERIAL_DETAILS, e -> System.err.println("Article"));
+        tb.addMaterialCommandToSideMenu("Articles", FontImage.MATERIAL_DETAILS, e -> new HomeArticle(res).show());
         tb.addMaterialCommandToSideMenu("Forum", FontImage.MATERIAL_CHAT_BUBBLE_OUTLINE, e -> System.err.println("Forum"));
         tb.addMaterialCommandToSideMenu("Reclamations", FontImage.MATERIAL_DETAILS, e -> System.err.println("Reclamation"));
 //        tb.addMaterialCommandToSideMenu("Evenement", FontImage.MATERIAL_DETAILS, e -> new Affichage(res).show());
-//        tb.addMaterialCommandToSideMenu("Ajout Evenement", FontImage.MATERIAL_DETAILS, e -> new HomeForm().HomeForm(res).show());
+      //  tb.addMaterialCommandToSideMenu("Ajout Evenement", FontImage.MATERIAL_DETAILS, e -> new HomeForm().HomeForm(res).show());
 //        tb.addMaterialCommandToSideMenu("Enseigne ", FontImage.MATERIAL_DETAILS, e -> new AffichageE(res).getF().show());
 
 //      tb.addMaterialCommandToSideMenu("Souk", FontImage.MATERIAL_DETAILS, e -> {
