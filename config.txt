@@ -1,0 +1,38 @@
+ ////User///
+    ///
+    public function findAction($email){
+        $tasks = $this->getDoctrine()->getManager()
+            ->getRepository(\AppBundle\Entity\User::class)
+            ->findOneBy(array('email'=>$email));
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($tasks);
+        return new JsonResponse($formatted);
+    }
+
+    public function newuAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $user -> setUsername($request->get('username'));
+        $user -> setEmail($request->get('email'));
+        $user -> setPassword($request->get('password'));
+        $user -> setRoles(array($request->get('role')));
+        $user-> setUsernameCanonical($request->get('username'));
+        $user-> setEmailCanonical($request->get('email'));
+        $user->setEnabled(1);
+       // $user -> setNumtel($request->get('numTel'));
+     //   $user -> setCode($request->get('code'));
+        $em->persist($user);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+        return new JsonResponse($formatted);
+    }
+/////////////
+les Routes
+/////////
+users_find_api:
+  path:     /finduser/{email}
+  defaults: { _controller: TechBundle:Default:find }
+create_user:
+  path:     /newuser
+  defaults: { _controller: TechBundle:Default:newu }
