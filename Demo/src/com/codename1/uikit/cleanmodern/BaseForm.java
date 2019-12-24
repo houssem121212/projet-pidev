@@ -84,7 +84,7 @@ public class BaseForm extends Form {
         ));
 
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> System.err.println("Profile"));
-        tb.addMaterialCommandToSideMenu("Evennements", FontImage.MATERIAL_UPDATE, e ->System.err.println("Evennement"));
+        tb.addMaterialCommandToSideMenu("Evennements", FontImage.MATERIAL_UPDATE, e ->new Homes(res).show());
      //   tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_SHOPPING_BASKET, e -> new PanierForm().getF().show());
         tb.addMaterialCommandToSideMenu("Formations", FontImage.MATERIAL_EXIT_TO_APP, e -> System.err.println("Formation"));
         tb.addMaterialCommandToSideMenu("Articles", FontImage.MATERIAL_DETAILS, e -> new HomeArticle(res).show());

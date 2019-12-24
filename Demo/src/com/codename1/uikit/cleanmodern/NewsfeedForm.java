@@ -19,6 +19,7 @@
 
 package com.codename1.uikit.cleanmodern;
 
+import Entity.Evennement;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ShareButton;
@@ -65,6 +66,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import service.ServiceEvents;
 import service.authuser;
 
 /**
@@ -107,6 +109,7 @@ public class NewsfeedForm extends BaseForm {
             System.out.println("Filtrage");
             
         fp.show();
+        
           Slider sl = (Slider) ui.findByName("Slider", ct1);
           Button btfiltre = (Button) ui.findByName("Button", ct1);
           Label lab = (Label) ui.findByName("Label", ct1);
@@ -121,6 +124,7 @@ public class NewsfeedForm extends BaseForm {
                 System.out.println(sl.getProgress());
             }
         });
+              
             Form f1 = new Form();
        Toolbar tf2 = new Toolbar(true);
                         f1.setToolbar(tf2);
@@ -211,8 +215,8 @@ public class NewsfeedForm extends BaseForm {
         ButtonGroup barGroup = new ButtonGroup();
           RadioButton news = RadioButton.createToggle("News", barGroup);
         news.setUIID("SelectBar");
-        RadioButton chicha = RadioButton.createToggle("Evennement", barGroup);
-        chicha.setUIID("SelectBar");
+        RadioButton Evennement = RadioButton.createToggle("Evennement", barGroup);
+        Evennement.setUIID("SelectBar");
         RadioButton traditionalfood = RadioButton.createToggle("Article", barGroup);
         traditionalfood.setUIID("SelectBar");
         RadioButton artisanial = RadioButton.createToggle("Formation", barGroup);
@@ -222,7 +226,7 @@ public class NewsfeedForm extends BaseForm {
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
         
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(5, news, chicha, traditionalfood, artisanial, other),
+                GridLayout.encloseIn(5, news, Evennement, traditionalfood, artisanial, other),
                 FlowLayout.encloseBottom(arrow)
         ));
         Tabs tab=new Tabs();
@@ -235,7 +239,7 @@ public class NewsfeedForm extends BaseForm {
             updateArrowPosition(news, arrow);
         });
         bindButtonSelection(news, arrow);
-        bindButtonSelection(chicha, arrow);
+        bindButtonSelection(Evennement, arrow);
         bindButtonSelection(traditionalfood, arrow);
         bindButtonSelection(artisanial, arrow);
         bindButtonSelection(other, arrow);
@@ -247,55 +251,104 @@ public class NewsfeedForm extends BaseForm {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
         
-        chicha.addActionListener(new ActionListener() {
+//        artisanial.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                System.out.println("artisanial");
+//             ConnectionRequest conE = new ConnectionRequest();
+//        conE.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/Artisanaa");
+//        conE.addResponseListener(new ActionListener<NetworkEvent>() {
+//
+//            @Override
+//            public void actionPerformed(NetworkEvent evt) {
+//
+//               ArrayList<Produit> list = new ArrayList<>();
+//               list.addAll(getListEtudiant(new String(conE.getResponseData())));
+//          
+//               
+//                for (Produit eq : getListEtudiant(new String(conE.getResponseData()))) {
+//                   try {
+//                       addItem(eq,res,icon1);
+//                   } catch (IOException ex) {
+//                    
+//                   }
+//                }
+//                Container C = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//             
+//                add(C);
+//
+//            }
+//        });
+//        NetworkManager.getInstance().addToQueue(conE);
+//        //fh.show();
+//            }
+//        });
+        
+        //////////////////
+        // Affichage Evenement
+        //////////
+        
+            Evennement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                System.out.println("chicha");
-               // Form fh = new Form();
+                System.err.println("Evennement");
+             ConnectionRequest conE = new ConnectionRequest();
+        conE.setUrl("http://localhost/tech-event/web/app_dev.php/tech/listE");
+        
+        
+         conE.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
                 
-        ConnectionRequest conH = new ConnectionRequest();
-        conH.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/Chicha");
-       
-        NetworkManager.getInstance().addToQueue(conH);
-        //fh.show();
+                ServiceEvents a = new ServiceEvents();
+                
+              ArrayList<Evennement> list = new ArrayList<>();
+              list.addAll(a.getlistE((new String(conE.getResponseData()))));
+              
+              System.err.println(list);
+              
+              for (Evennement eq : a.getlistE(new String(conE.getResponseData()))) {
+                   try {
+                       
+//                       addItem(eq,res,icon1);
+                       System.err.println("dkhalt lil try");
+                      
+                   } catch (Exception ex) {
+                       System.err.println("dkhalt lil catch");
+                    
+                   }
+                }
+               
+          
+                System.err.println("RJA3");
+            
+                Container C = new Container(new BoxLayout(BoxLayout.X_AXIS));
+             
+                add(C);
+
             }
         });
         
-            traditionalfood.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                System.out.println("traditionalfood");
-             ConnectionRequest conF = new ConnectionRequest();
-        conF.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/TraditionalFoodd");
-       
-        NetworkManager.getInstance().addToQueue(conF);
-        //fh.show();
-            }
-        });
-            
-            artisanial.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                System.out.println("artisanial");
-             ConnectionRequest conE = new ConnectionRequest();
-        conE.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/Artisanaa");
+        
       
         NetworkManager.getInstance().addToQueue(conE);
         //fh.show();
             }
         });
             
-            other.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                System.out.println("other");
-             ConnectionRequest conA = new ConnectionRequest();
-        conA.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/Otherr");
-       
-        NetworkManager.getInstance().addToQueue(conA);
-        //fh.show();
-            }
-        });
+//            other.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                System.out.println("other");
+//             ConnectionRequest conA = new ConnectionRequest();
+//        conA.setUrl("http://localhost/madame/web/app_dev.php/pi_mobile/Otherr");
+//       
+//        NetworkManager.getInstance().addToQueue(conA);
+//        //fh.show();
+//            }
+//        });
         
 ////        addButton(res.getImage("news-item-1.jpg"), "Morbi per tincidunt tellus sit of amet eros laoreet.", false, 26, 32);
 ////        addButton(res.getImage("news-item-2.jpg"), "Fusce ornare cursus masspretium tortor integer placera.", true, 15, 21);
@@ -374,4 +427,117 @@ public class NewsfeedForm extends BaseForm {
             }
         });
     }
+    
+    
+    
+    
+//    
+//    
+//     public void addItem(Evennement eq,Resources theme,Image icon1) throws IOException {
+//         
+//         
+//         System.err.println(eq);
+//         
+//         
+//         TextField a = new TextField();
+//        
+//         a.setText(eq.getTitre_Event());
+//         
+//           UIBuilder  ui = new UIBuilder();
+//         Container ct1;
+// 
+//      Form f1 = new Form();
+//         
+//    EncodedImage imc;
+//    Image img;
+//    ImageViewer imv;
+//    Container ct3 ;
+//   String url="http://localhost/tech-event/public/uploads"+eq.getImage_Event();
+//        Container C1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//        Container C2 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//        Container C3 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//      Label  nom = new Label(eq.getTitre_Event());
+//       Label supp = new Label("Voir plus");
+//    imc = EncodedImage.create("/load.png");
+//            
+//        img=URLImage.createToStorage(imc,""+eq.getImage_Event(), url, URLImage.RESIZE_SCALE);
+//             int displayHeight = Display.getInstance().getDisplayHeight();
+//        ScaleImageLabel scaleImageLabel = new ScaleImageLabel(img);
+//        Image scImage = img.scaled(-1, displayHeight / 10);
+//         imv= new ImageViewer(scImage);
+//        supp.getAllStyles().setFgColor(0xFF0000);
+//
+//      
+////     addButton(theme,scImage, eq,nom.getText(), false, 26, 32);
+//
+//   
+//        supp.addPointerPressedListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                
+//                
+//             f1.show();
+//////              Label lnom = new Label ("Le nom est: "+eq.getNom());
+//////              Label lref = new Label ("La reference est: "+eq.getReference());
+//////              Label lcat = new Label ("La categorie est: "+eq.getCategorie());
+//////              
+//////              Label ldesc = new Label ("La description est: "+eq.getDescription());
+//////              Label lprix = new Label ("Le prix est: "+eq.getPrix()+"DT");
+//////              
+////              f1.add(lnom);
+////              f1.add(lref);
+////              f1.add(lcat);
+////              f1.add(ldesc);
+////              f1.add(lprix);
+////     
+//              Image scImage1 = img.scaled(-1, displayHeight / 3);
+//              ImageViewer imvo;
+//              imvo= new ImageViewer (scImage1);
+//              
+//              
+//              Container cnt = new Container (new BoxLayout (BoxLayout.X_AXIS) );
+//               Container cnt1 = new Container (new BoxLayout (BoxLayout.Y_AXIS) );
+//              cnt.add(imvo);            
+//            Label jaim = new Label("J'aime");
+//             Label jaimpas= new Label("J'aime pas");
+//            Label panier= new Label("Ajouter au panier");
+//             jaim.getAllStyles().setFgColor(0xFF0000);
+//             jaimpas.getAllStyles().setFgColor(0xFF0000);
+//             panier.getAllStyles().setFgColor(0xFF0000);
+//             
+//             cnt1.add(jaim);
+//             cnt1.add(jaimpas);
+//             cnt1.add(panier);
+//             cnt.add(cnt1);  
+//             f1.add(cnt);
+//              f1.getToolbar().addCommandToLeftBar("back",icon1,new ActionListener<ActionEvent>() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+////              ProduitForm produit=new ProduitForm(theme);
+////                produit.show();
+//
+//            }
+//        });
+//
+//
+//            }
+//
+//        });
+//               
+//               
+//               
+//               
+//               
+//    }
+
+//    private void addButton(Resources theme, Image scImage, Evennement eq, String text, boolean b, int i, int i0) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//    
+    
+    
+    
+    
+    
+    
 }
