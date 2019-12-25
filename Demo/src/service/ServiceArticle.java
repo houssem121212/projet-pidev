@@ -62,7 +62,7 @@ public class ServiceArticle {
      
      
      public ArrayList<Article> parseListTaskJson(String json) {
-
+         System.out.println("json"+json);
         ArrayList<Article> listTasks = new ArrayList<>();
 
         try {
@@ -77,26 +77,28 @@ public class ServiceArticle {
                 
                 Article ar = new Article();
 
-                float id = Float.parseFloat(obj.get("id").toString());
+                float id = Float.parseFloat(obj.get("idArticle").toString());
      
                 SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
            // String datedeb = formater.format(ar.getDate_Article());           
         
                 
-            ar.setId_User((int) id);
-                ar.setNom_Article(obj.get("Nom_Article").toString());
+            ar.setId_Article((int) id);
+                ar.setNom_Article(obj.get("nomArticle").toString());
                
-                ar.setDate_Article(obj.get("Date_Article").toString());
-                ar.setContenu_Article(obj.get("Contenu_Article").toString());
+                ar.setDate_Article(obj.get("dateArticle").toString());
+                ar.setContenu_Article(obj.get("contenuArticle").toString());
                 
                 
-                float nbp = Float.parseFloat(obj.get("Nbrevue").toString());
+                float nbp = Float.parseFloat(obj.get("nbrevue").toString());
                   ar.setNbrevue((int) nbp);
                 
                
+                float us = Float.parseFloat(obj.get("idUser").toString());
+                  ar.setId_User((int) us);
                 
-                ar.setTitre_Event(obj.get("Titre_Event").toString());
-                ar.setImage_Article(obj.get("Image_Article").toString());
+                ar.setTitre_Event(obj.get("titreEvent").toString());
+                ar.setImage_Article(obj.get("imageArticle").toString());
                 
                 System.out.println(ar);
                 
@@ -115,7 +117,7 @@ public class ServiceArticle {
      ArrayList<Article> listTasks = new ArrayList<>();
      public ArrayList<Article> getList2(){       
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/tech-event/web/app_dev.php/tech/tasks/all");  
+        con.setUrl("http://localhost/tech-event/web/app_dev.php/tech/allArticle");  
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
@@ -128,7 +130,76 @@ public class ServiceArticle {
         return listTasks;
     }
      
+     
+     
+//      public ArrayList<Article> parseListTask1Json(String json) {
+//         System.out.println("json"+json);
+//        ArrayList<Article> listTasks1 = new ArrayList<>();
+//
+//        try {
+//            JSONParser j = new JSONParser();
+//            
+//            Map<String, Object> Articles = j.parseJSON(new CharArrayReader(json.toCharArray()));
+//                       
+//            
+//            List<Map<String, Object>> list = (List<Map<String, Object>>) Articles.get("root");
+//
+//            for (Map<String, Object> obj : list) {
+//                
+//                Article ar = new Article();
+//
+//                float id = Float.parseFloat(obj.get("idArticle").toString());
+//     
+//                SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+//           // String datedeb = formater.format(ar.getDate_Article());           
+//        
+//                
+//            ar.setId_Article((int) id);
+//                ar.setNom_Article(obj.get("nomArticle").toString());
+//               
+//                ar.setDate_Article(obj.get("dateArticle").toString());
+//                ar.setContenu_Article(obj.get("contenuArticle").toString());
+//                
+//                
+//                float nbp = Float.parseFloat(obj.get("nbrevue").toString());
+//                  ar.setNbrevue((int) nbp);
+//                
+//               
+//                float us = Float.parseFloat(obj.get("idUser").toString());
+//                  ar.setId_User((int) us);
+//                
+//                ar.setTitre_Event(obj.get("titreEvent").toString());
+//                ar.setImage_Article(obj.get("imageArticle").toString());
+//                
+//                System.out.println(ar);
+//                
+//                listTasks1.add(ar);
+//
+//            }
+//
+//        } catch (IOException ex) {
+//        }
+//        
+//        System.out.println(listTasks1);
+//        return listTasks1;
+//
+//    }
+//     ArrayList<Article> listTasks1 = new ArrayList<>();
+//     public ArrayList<Article> getList3(){       
+//        ConnectionRequest con = new ConnectionRequest();
+//      
+//        con.setUrl("http://localhost/tech-event/web/app_dev.php/tech/oneArticle/" +ar.getId_Article());  
+//        con.addResponseListener(new ActionListener<NetworkEvent>() {
+//            @Override
+//            public void actionPerformed(NetworkEvent evt) {
+//                ServiceArticle ser = new ServiceArticle();
+//                listTasks1 = ser.parseListTaskJson(new String(con.getResponseData()));
+//            }
+//        });
+//        
+//            NetworkManager.getInstance().addToQueueAndWait(con);
+//        return listTasks1;
+//    }
+
 }
-
-
 

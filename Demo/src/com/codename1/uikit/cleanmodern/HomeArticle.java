@@ -124,8 +124,8 @@ public class HomeArticle extends Form{
         });
        
         btnaff.addActionListener((e)->{
-      //  Affichage a =new Affichage();
-       // a.show();
+       AffichageArticle a =new AffichageArticle();
+       a.show();
         });
     }
 //
