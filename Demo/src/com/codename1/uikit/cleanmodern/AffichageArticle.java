@@ -31,6 +31,8 @@ import com.codename1.ui.spinner.Picker;
 import service.ServiceArticle;
 
 import com.codename1.ui.Dialog;
+import com.codename1.ui.util.Resources;
+import static com.codename1.uikit.cleanmodern.SignInForm.res;
 import service.authuser;
 
 
@@ -38,20 +40,11 @@ import service.authuser;
 
 /**
  *
- * @author bhk
+ * @author aymen
  */
 public class AffichageArticle extends Form {
 
-    Label titre;
-        Label animateur;
-        Label lieu;
-        Label lien;
-        Label datedeb;
-        Label datefin;
-        Label nbp;
-        Label frais;
-        Label description;
-       Label affiche;
+
   
        EncodedImage imc;
     Image img;
@@ -106,6 +99,21 @@ public class AffichageArticle extends Form {
                             Button btnn = new Button("Supprimer "); 
                             Button btnm = new Button("Modifier "); 
                             Button btna = new Button("vue ");
+                            
+                            
+//                            
+//                            btnm.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent o) {
+//
+//                      ServiceArticle ser = new ServiceArticle();
+////                      Reservation reser = new Reservation(LEFT, emplacement, emplacement, emplacement, DATED_EVENT, DATEF_EVENT, emplacement, CENTER)
+//                      Article reser = new Article(ev.getId_Article(),  ev.getNom_Article(), ev.getTitre_Event(), ev.getContenu_Article(), ev.getImage_Article(),ev.getId_User(),ev.getDate_Article());
+//                ser.modifierArticle(ser);
+//                }
+//            });
+//                            
+                            
                             btnn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent o) {
@@ -167,10 +175,9 @@ public class AffichageArticle extends Form {
                }
            });
 
-         
+          
                                                
-                                               
-                                               
+                                             
                                                
               btna.addActionListener(new ActionListener() {
                 @Override
@@ -189,9 +196,26 @@ AffichageArticle1 ar =new AffichageArticle1();
            });
 
                                                
+                    btnm.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent o) {
+
+modifArticle ar =new modifArticle(ev, res);
+
+       ar.show();
+
+   
+            
+               }
+           });
+                               
                                                
-                                               
-                                               
+                  
+              
+              
+                
+     
+     
                             
                             
     C1.add(titreE);

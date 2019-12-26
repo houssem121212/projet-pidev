@@ -12,7 +12,10 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.util.Resources;
+import com.codename1.uikit.cleanmodern.AffichageArticle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +134,27 @@ public class ServiceArticle {
     }
      
      
+             public void modifierArticle(Article ta,Resources res) {
+             ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/tech-event/web/app_dev.php/tech/updateArticle/"+ ta.getId_Article()+"?titre=" + ta.getNom_Article() 
+                + "&contenuArticle=" + ta.getContenu_Article()
+                + "&imageArticle=" + ta.getImage_Article()
+               // + "&description=" + ta.getDescription() 
+                + "&titreEvent="+  ta.getTitre_Event();
+        con.setUrl(Url);
+
+        con.addResponseListener((e) -> {
+            String str = new String(con.getResponseData());
+            System.out.println(str);
+             Dialog.show("Succés", "Event modifié", "ok", null);
+
+             AffichageArticle a =new AffichageArticle();
+       a.show();
+          
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        }                               
+         
      
 //      public ArrayList<Article> parseListTask1Json(String json) {
 //         System.out.println("json"+json);
