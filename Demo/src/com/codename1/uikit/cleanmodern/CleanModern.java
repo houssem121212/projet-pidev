@@ -41,7 +41,7 @@ public class CleanModern {
         theme = UIManager.initFirstTheme("/theme");
 
         // Disable the global toolbar as we want a layered toolbar
-        Toolbar.setGlobalToolbar(false);
+        Toolbar.setGlobalToolbar(true);
 
         // Pro only feature, uncomment if you have a pro subscription
         // Log.bindCrashProtection(true);

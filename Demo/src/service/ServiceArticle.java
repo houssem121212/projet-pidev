@@ -38,7 +38,7 @@ public class ServiceArticle {
              
                 + "&Contenu_Article=" + ar.getContenu_Article()+ 
                 "&Image_Article=" + ar.getImage_Article()+ 
-               // "&Date_Article=" + ar.getDate_Article()+
+                "&Date_Article=" + ar.getDate_Article()+
          
                "&Id_User=" + ar.getId_User()+
                
@@ -225,57 +225,5 @@ public class ServiceArticle {
 //        return listTasks1;
 //    }
 
-             
-             
-             ///////////////////////////
-        
-        public ArrayList<Article> Chercher(String d) {
-        ArrayList<Article> listArt = new ArrayList<>();
-        ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/tech-event/web/app_dev.php/tech/chercherArt/" + d);
-        con.addResponseListener((NetworkEvent evt) -> {
-            JSONParser jsonp = new JSONParser();
-            try {
-                Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                System.out.println(tasks);
-                List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
-                for (Map<String, Object> obj : list) {
-                    Article ar = new Article();
-                   
-            float id = Float.parseFloat(obj.get("idArticle").toString());
-     
-                SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-           // String datedeb = formater.format(ar.getDate_Article());           
-        
-                
-            ar.setId_Article((int) id);
-                ar.setNom_Article(obj.get("nomArticle").toString());
-               
-                ar.setDate_Article(obj.get("dateArticle").toString());
-                ar.setContenu_Article(obj.get("contenuArticle").toString());
-                
-                
-                float nbp = Float.parseFloat(obj.get("nbrevue").toString());
-                  ar.setNbrevue((int) nbp);
-                
-               
-                float us = Float.parseFloat(obj.get("idUser").toString());
-                  ar.setId_User((int) us);
-                
-                ar.setTitre_Event(obj.get("titreEvent").toString());
-                ar.setImage_Article(obj.get("imageArticle").toString());
-                
-            
-             
-                    listArt.add(ar);
-                }
-            } catch (IOException ex) {
-            }
-
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        return listArt;
-    }
-             
 }
 

@@ -7,7 +7,6 @@ package com.codename1.uikit.cleanmodern;
 
 
 import Entity.Article;
-import com.codename1.io.FileSystemStorage;
 import service.ServiceArticle;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
@@ -15,14 +14,12 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
-import rest.file.uploader.tn.FileUploader;
 
 /**
  *
@@ -38,23 +35,18 @@ public class HomeArticle extends Form{
 
   
     Container descriptionContainer;
-    Button btajout,btnaff,btsupp;
+    Button btajout,btnaff;
 
     public HomeArticle(Resources theme)  {
        
         
    ///     f = new Form("home");
         tnomarticle = new TextField("","titre");
-        tnomarticle.getUnselectedStyle().setFgColor(000255);
        tncontenueArticle = new TextField("","contenue Article");
-       tncontenueArticle.getUnselectedStyle().setFgColor(000255);
-         combo = new TextField("","titre Event");
-        combo.getUnselectedStyle().setFgColor(000255);
+         combo = new TextField("","titre Article");
     
         btajout = new Button("ajouter");
         btnaff=new Button("Affichage");
-        btsupp=new Button("Supprimer");
-
         
      
       
@@ -62,7 +54,12 @@ public class HomeArticle extends Form{
        
         
         
-    
+        Label descriptionLabel = new Label("Description : ");
+        TextArea descriptionArea = new TextArea(3, 20);
+        Container descriptionContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        descriptionContainer.add(descriptionLabel);
+        descriptionContainer.add(descriptionArea);
+        
         
         Label photoLabel = new Label("Photo");
         Button selectPhoto = new Button("parcourir");
@@ -71,23 +68,10 @@ public class HomeArticle extends Form{
         selectPhoto.addActionListener((evt) -> {
             if (Dialog.show("Photo!", "une annonce avec des  photos est 10 fois plus visible", "app photo", "Gallerie") == false) {
                 Display.getInstance().openGallery((e) -> {
-                   
-                    
                     if (e != null && e.getSource() != null) {
-                    String     path = (String) e.getSource();
-                        System.out.println(path.substring(7));
-                        Image img = null;
-                        photoField.setText(path.substring(7));//image heya just label nsob feha fel path
-                        try {
-                            img = Image.createImage(FileSystemStorage.getInstance().openInputStream(path));
-                            System.out.println(img);
-                        } catch (Exception ex) {
-                            
-                        }
+                        String file = (String) e.getSource();
+                        photoField.setText(file.substring(file.lastIndexOf('/') + 1));
                     }
-                    
-                    
-                    
                 }, Display.GALLERY_IMAGE);
             } else {
                 System.out.println("ici on va accerder à l'appareille photo");
@@ -103,11 +87,11 @@ public class HomeArticle extends Form{
        add(combo);
 
        
-      
+        add(descriptionContainer);
         add(photoContainer);
         add(btajout);
         add(btnaff);
-         add(btsupp);
+         
         btajout.addActionListener((e) -> {
             
             if (tnomarticle.getText().equals("")) {
@@ -116,7 +100,12 @@ public class HomeArticle extends Form{
             }
 
              
-     
+            
+        
+            else if (descriptionArea.getText().equals("")) {
+                
+                Dialog.show("ERREUR SAISIE","Description VIDE","OK","ANNULER");
+            }
             else if (photoField.getText().equals("")) {
                 
                 Dialog.show("ERREUR SAISIE","Choisisez une image","OK","ANNULER");
@@ -126,21 +115,12 @@ public class HomeArticle extends Form{
 
             
             ServiceArticle ser = new ServiceArticle();
-            
-            
-            FileUploader fc = new FileUploader("localhost/tech-event/");
- try{
- String f = fc.upload(photoField.getText());
-            
-            
-            Article article = new Article(1,tnomarticle.getText(),tncontenueArticle.getText(),f,combo.getText(),
+            Article article = new Article(1,tnomarticle.getText(),descriptionArea.getText(), photoField.getText(),combo.getText(),
                    1,"12/12/2020" );
            
             ser.ajoutArticle(article);
            Dialog.show("felicitation", " votre Article a ete ajoute", "ok", null);            
- }catch(Exception ex){}       
- 
- }
+        }
         });
        
         btnaff.addActionListener((e)->{

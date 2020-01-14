@@ -42,7 +42,7 @@ public class authuser {
 
     public static User user = new User();
    // public static User onlineId = new User();
-    
+    public static int u1;
     int temp;
     
     public void login(Resources res) {
@@ -50,7 +50,7 @@ public class authuser {
         //TextField passlogin = (TextField) SignInForm.builder.findByName("Password", SignInForm.ctn);
         String userlog = SignInForm.username.getText();
         String passlog = SignInForm.password.getText();
-
+        
         ConnectionRequest connectionRequest;
         connectionRequest = new ConnectionRequest() {
             @Override
@@ -71,6 +71,7 @@ public class authuser {
                         user.setNumTel(((String) data.get("numTel")));
                         user.setNom(((String) data.get("username")));
                         user.setClasse(((String) data.get("classe")));
+                        u1=user.getId();
                         
                         System.err.println(user.getNom());
                         /*Map<String, Object> data2 = (Map<String, Object>) (data.get("datenaissence"));
